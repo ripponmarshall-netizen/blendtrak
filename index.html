@@ -336,7 +336,6 @@ canvas{max-width:100%}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 
 /* MISC */
 .section-title{font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--grey-400);margin-bottom:10px;margin-top:4px}
@@ -399,7 +398,6 @@ canvas{max-width:100%}
     <div class="ob-dot"></div>
   </div>
 
-  <!-- Step 1: Welcome -->
   <div class="ob-step active" id="ob-1">
     <h1 class="ob-title">Your habit-first<br><em>fat loss companion</em></h1>
     <p class="ob-sub">BlendTrak helps you stay consistent with the small daily habits that actually drive fat loss — smoothies, meals, water, and weekly check-ins. No punishment, just progress.</p>
@@ -410,7 +408,6 @@ canvas{max-width:100%}
     </div>
   </div>
 
-  <!-- Step 2: Profile -->
   <div class="ob-step" id="ob-2">
     <h2 class="ob-title">About you</h2>
     <p class="ob-sub">Used only to calculate your personal calorie target. Stays on your device.</p>
@@ -447,7 +444,6 @@ canvas{max-width:100%}
     </div>
   </div>
 
-  <!-- Step 3: Activity & Goal -->
   <div class="ob-step" id="ob-3">
     <h2 class="ob-title">Activity & goal</h2>
     <p class="ob-sub">We'll use this to set a smart calorie target that supports steady fat loss.</p>
@@ -476,7 +472,6 @@ canvas{max-width:100%}
     </div>
   </div>
 
-  <!-- Step 4: Summary -->
   <div class="ob-step" id="ob-4">
     <h2 class="ob-title">Your daily targets</h2>
     <p class="ob-sub">Here's what BlendTrak will use as your starting targets. You can adjust these anytime in Settings.</p>
@@ -799,20 +794,27 @@ function dayLabel(dateStr){
   return ['Su','Mo','Tu','We','Th','Fr','Sa'][d.getDay()];
 }
 function typeEmoji(type){
-  return{smoothie:'🥤',meal:'🍽️',snack:'🍎',water:'💧',multivitamin:'💊',supplement:'🌿',workout:'🏃'}[type]||'📋';
+  return{smoothie:'🥤',meal:'🍽️',snack:'🍎',water:'💧',multivitamin:'💊',supplement:'🌿',workout:'🏃',vitamin:'💊'}[type]||'📋';
 }
 function showToast(msg,type='',dur=2500){
   const t=document.getElementById('toast');
-  t.className='';
-  t.className=type ? type : '';
+  t.className=''; // reset any prior state
+  t.classList.remove('hidden');
+  if(type)t.classList.add(type);
   t.innerHTML=`<span>${type==='success'?'✓':type==='warn'?'⚠':''}</span> ${msg}`;
-  t.className = type ? type : '';
   setTimeout(()=>t.classList.add('hidden'),dur);
 }
 function closeModal(){document.getElementById('modal').classList.add('hidden')}
 function openModal(html){
   document.getElementById('modal-inner').innerHTML=html;
   document.getElementById('modal').classList.remove('hidden');
+}
+function updateLogBadge(){
+  const count=APP.allLogs.filter(l=>l.date===today()).length;
+  const badge=document.getElementById('log-badge');
+  if(!badge)return;
+  badge.textContent=count;
+  badge.style.display=count>0?'flex':'none';
 }
 
 // ====================================================
@@ -1014,7 +1016,7 @@ function habitRow(key,done,emoji,label,meta){
 function toggleHabit(key){
   if(key==='smoothie')quickLog('smoothie');
   else if(key==='meal')quickLog('meal');
-  else if(key==='vitamin')quickLog('vitamin');
+  else if(key==='vitamin')quickLog('multivitamin');
   else if(key==='water')quickLog('water');
   else if(key==='logged')navigate('log');
 }
@@ -1025,6 +1027,7 @@ function toggleHabit(key){
 const ENTRY_TYPES=['smoothie','meal','snack','water','multivitamin','supplement','workout'];
 
 function quickLog(preType='smoothie'){
+  if(preType==='vitamin')preType='multivitamin';
   const defKcal={smoothie:450,meal:500,snack:200,water:0,multivitamin:0,supplement:0,workout:0};
   const defWater={water:250,smoothie:300};
   const typeOpts=ENTRY_TYPES.map(t=>`<option value="${t}"${t===preType?' selected':''}>${typeEmoji(t)} ${t.charAt(0).toUpperCase()+t.slice(1)}</option>`).join('');
@@ -1446,10 +1449,11 @@ async function saveWeight(){
   const entry={weight:w,notes:n,date:today(),timestamp:Date.now()};
   const id=await dbPut('bodyMetrics',entry);
   APP.bodyMetrics.push({...entry,id});
-  if(APP.profile){APP.profile.weight=w;await dbPut('profile',APP.profile);}
+  if(APP.profile){APP.profile.weight=w;APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);}
   closeModal();
   showToast(`⚖️ ${w} kg logged`,'success');
   renderMetrics();
+  renderSettings();
 }
 
 // ====================================================
@@ -1545,10 +1549,10 @@ function requestNotificationPermission(){
 }
 
 function editName(){editField('Name','text',APP.profile.name,async v=>{APP.profile.name=v;await dbPut('profile',APP.profile);renderSettings();})}
-function editWeight(){editField('Weight (kg)','number',APP.profile.weight,async v=>{APP.profile.weight=parseFloat(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();},'0.1')}
-function editHeight(){editField('Height (cm)','number',APP.profile.height,async v=>{APP.profile.height=parseInt(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();})}
-function editAge(){editField('Age','number',APP.profile.age,async v=>{APP.profile.age=parseInt(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();})}
-function editTarget(){editField('Daily Calorie Target (kcal)','number',APP.profile.calorieTarget,async v=>{APP.profile.calorieTarget=parseInt(v);await dbPut('profile',APP.profile);renderSettings();})}
+function editWeight(){editField('Weight (kg)','number',APP.profile.weight,async v=>{APP.profile.weight=parseFloat(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();renderMetrics();},'0.1')}
+function editHeight(){editField('Height (cm)','number',APP.profile.height,async v=>{APP.profile.height=parseInt(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();renderMetrics();})}
+function editAge(){editField('Age','number',APP.profile.age,async v=>{APP.profile.age=parseInt(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();renderMetrics();})}
+function editTarget(){editField('Daily Calorie Target (kcal)','number',APP.profile.calorieTarget,async v=>{APP.profile.calorieTarget=parseInt(v);await dbPut('profile',APP.profile);renderSettings();renderMetrics();})}
 function editWater(){editField('Water Goal (ml)','number',APP.profile.waterGoal||2000,async v=>{APP.profile.waterGoal=parseInt(v);await dbPut('profile',APP.profile);renderSettings();},'50')}
 function editActivity(){
   openModal(`
@@ -1569,7 +1573,7 @@ function editActivity(){
 }
 async function setActivity(val){
   APP.profile.activity=val;APP.profile.calorieTarget=calcTarget(APP.profile);
-  await dbPut('profile',APP.profile);closeModal();renderSettings();
+  await dbPut('profile',APP.profile);closeModal();renderSettings();renderMetrics();
 }
 
 function editField(label,type,currentVal,onSave,step='1'){
@@ -1803,17 +1807,6 @@ async function obFinish(){
 // HEADER ACTION
 // ====================================================
 function headerAction(){}
-
-// ====================================================
-// LOG BADGE
-// ====================================================
-function updateLogBadge(){
-  const count=APP.allLogs.filter(l=>l.date===today()).length;
-  const badge=document.getElementById('log-badge');
-  if(!badge)return;
-  badge.textContent=count;
-  badge.style.display=count>0?'flex':'none';
-}
 
 // ====================================================
 // SERVICE WORKER
