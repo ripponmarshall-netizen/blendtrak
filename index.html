@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -22,8 +21,8 @@
   --teal:#2A9D8F;--teal-dark:#1E7B6E;--teal-mid:#4DB6AC;--teal-light:#E8F5F3;--teal-xlight:#F0FAF8;
   --blush:#FDE8EC;--blush-mid:#F8BBD0;--blush-dark:#F48FB1;
   --white:#FAFAFA;--off-white:#F5F7F6;
-  --grey-50:#F2F4F3;--grey-100:#E8EAE9;--grey-200:#D1D5D3;--grey-400:#9EAAA6;
-  --grey-600:#637069;--grey-800:#374340;--grey-900:#1A2926;
+  --grey-50:#F2F4F3;--grey-100:#E8EAE9;--grey-200:#D1D5D3;--grey-300:#BEC4C1;--grey-400:#9EAAA6;
+  --grey-500:#80918C;--grey-600:#637069;--grey-700:#4B5A55;--grey-800:#374340;--grey-900:#1A2926;
   --warn:#E76F51;--warn-light:#FDECEA;
   --success:#52B788;--success-light:#E8F5EE;
   --radius-sm:10px;--radius:16px;--radius-lg:22px;--radius-xl:28px;
@@ -40,6 +39,7 @@ html,body{height:100%;background:var(--off-white);font-family:var(--font-body);c
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,select,textarea{font-family:inherit;font-size:1rem}
 img,svg{display:block}
+.hidden{display:none!important}
 
 /* ===== LAYOUT ===== */
 #app{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--off-white)}
@@ -186,7 +186,6 @@ img,svg{display:block}
 .ring-track{fill:none;stroke:var(--grey-100);stroke-width:7}
 .ring-fill{fill:none;stroke:var(--teal);stroke-width:7;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .5s ease}
 .ring-fill.warn{stroke:var(--warn)}
-.ring-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
 .calorie-nums{flex:1}
 .cal-main{font-size:1.6rem;font-weight:800;color:var(--grey-900);line-height:1}
 .cal-unit{font-size:.8rem;color:var(--grey-400);font-weight:600;margin-top:2px}
@@ -379,14 +378,12 @@ canvas{max-width:100%}
 .goal-option h4{font-size:.9rem;font-weight:700;color:var(--grey-900);margin-bottom:4px}
 .goal-option p{font-size:.75rem;color:var(--grey-500);line-height:1.4}
 </style>
-
 </head>
 <body>
 <div id="app">
 
 <!-- ===== ONBOARDING ===== -->
-
-<div id="onboarding">
+<div id="onboarding" class="hidden">
   <div class="ob-logo">
     <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="40" height="40" rx="10" fill="#2A9D8F"/>
@@ -403,7 +400,6 @@ canvas{max-width:100%}
   </div>
 
   <!-- Step 1: Welcome -->
-
   <div class="ob-step active" id="ob-1">
     <h1 class="ob-title">Your habit-first<br><em>fat loss companion</em></h1>
     <p class="ob-sub">BlendTrak helps you stay consistent with the small daily habits that actually drive fat loss — smoothies, meals, water, and weekly check-ins. No punishment, just progress.</p>
@@ -415,7 +411,6 @@ canvas{max-width:100%}
   </div>
 
   <!-- Step 2: Profile -->
-
   <div class="ob-step" id="ob-2">
     <h2 class="ob-title">About you</h2>
     <p class="ob-sub">Used only to calculate your personal calorie target. Stays on your device.</p>
@@ -453,7 +448,6 @@ canvas{max-width:100%}
   </div>
 
   <!-- Step 3: Activity & Goal -->
-
   <div class="ob-step" id="ob-3">
     <h2 class="ob-title">Activity & goal</h2>
     <p class="ob-sub">We'll use this to set a smart calorie target that supports steady fat loss.</p>
@@ -483,7 +477,6 @@ canvas{max-width:100%}
   </div>
 
   <!-- Step 4: Summary -->
-
   <div class="ob-step" id="ob-4">
     <h2 class="ob-title">Your daily targets</h2>
     <p class="ob-sub">Here's what BlendTrak will use as your starting targets. You can adjust these anytime in Settings.</p>
@@ -500,7 +493,6 @@ canvas{max-width:100%}
 </div>
 
 <!-- ===== MAIN APP ===== -->
-
 <div id="main" class="hidden">
   <header id="app-header">
     <div class="hdr-logo">
@@ -523,7 +515,7 @@ canvas{max-width:100%}
     <section class="screen" id="screen-recipes"><div class="screen-content" id="recipes-content"></div></section>
     <section class="screen" id="screen-metrics"><div class="screen-content" id="metrics-content"></div></section>
     <section class="screen" id="screen-settings"><div class="screen-content" id="settings-content"></div></section>
-  </section>
+  </main>
 
   <nav id="bottom-nav">
     <button class="nav-btn active" data-screen="today" onclick="navigate('today')">
@@ -553,7 +545,6 @@ canvas{max-width:100%}
 </div>
 
 <!-- ===== QUICK LOG MODAL ===== -->
-
 <div id="modal" class="hidden">
   <div class="modal-backdrop" onclick="closeModal()"></div>
   <div class="modal-sheet">
@@ -563,7 +554,6 @@ canvas{max-width:100%}
 </div>
 
 <!-- ===== TOAST ===== -->
-
 <div id="toast" class="hidden"></div>
 
 </div><!-- #app -->
@@ -592,7 +582,7 @@ function dbGetAll(store){
     const tx=db.transaction(store,'readonly');
     const req=tx.objectStore(store).getAll();
     req.onsuccess=e=>res(e.target.result);
-    req.onerror=rej;
+    req.onerror=e=>rej(e);
   });
 }
 function dbGet(store,key){
@@ -600,7 +590,7 @@ function dbGet(store,key){
     const tx=db.transaction(store,'readonly');
     const req=tx.objectStore(store).get(key);
     req.onsuccess=e=>res(e.target.result);
-    req.onerror=rej;
+    req.onerror=e=>rej(e);
   });
 }
 function dbPut(store,data){
@@ -608,7 +598,7 @@ function dbPut(store,data){
     const tx=db.transaction(store,'readwrite');
     const req=tx.objectStore(store).put(data);
     req.onsuccess=e=>res(e.target.result);
-    req.onerror=rej;
+    req.onerror=e=>rej(e);
   });
 }
 function dbDelete(store,key){
@@ -616,7 +606,7 @@ function dbDelete(store,key){
     const tx=db.transaction(store,'readwrite');
     const req=tx.objectStore(store).delete(key);
     req.onsuccess=e=>res(e.target.result);
-    req.onerror=rej;
+    req.onerror=e=>rej(e);
   });
 }
 function dbClear(store){
@@ -624,7 +614,7 @@ function dbClear(store){
     const tx=db.transaction(store,'readwrite');
     const req=tx.objectStore(store).clear();
     req.onsuccess=()=>res();
-    req.onerror=rej;
+    req.onerror=e=>rej(e);
   });
 }
 
@@ -733,7 +723,7 @@ function calcBMR(p){
 function calcTDEE(p){return Math.round(calcBMR(p)*(ACTIVITY_FACTORS[p.activity]||1.55))}
 function calcTarget(p){
   const tdee=calcTDEE(p);
-  return Math.round(tdee*0.85); // 15% deficit = mild fat loss
+  return Math.round(tdee*0.85);
 }
 function calcBMI(p){return +(p.weight/((p.height/100)**2)).toFixed(1)}
 function bmiCategory(bmi){
@@ -748,15 +738,11 @@ function bmiPct(bmi){return Math.min(100,Math.max(0,(bmi-15)/25*100))}
 // ROUTER
 // ====================================================
 function navigate(screen){
-  // Hide all screens
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  // Show target
   document.getElementById('screen-'+screen).classList.add('active');
   document.querySelector(`[data-screen="${screen}"]`).classList.add('active');
   APP.currentScreen=screen;
-  // Render
-  const titles={today:'Today',log:'Log Intake',recipes:'Recipes',metrics:'Metrics',settings:'More'};
   document.getElementById('hdr-title').textContent='';
   document.getElementById('hdr-action').style.display='none';
   switch(screen){
@@ -772,10 +758,16 @@ function navigate(screen){
 // HELPERS
 // ====================================================
 function fmt(n){return n===undefined||n===null||isNaN(n)?'—':Math.round(n).toLocaleString()}
-function today(){return new Date().toISOString().split('T')[0]}
+function today(){
+  const d=new Date();
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
 function todayLogs(){return APP.allLogs.filter(l=>l.date===today())}
 function totalKcal(logs){return logs.reduce((s,l)=>s+(l.kcal||0),0)}
-function totalWater(logs){return logs.reduce((s,l)=>s+(l.water_ml||0)+(l.type==='water'?l.amount_ml||250:0),0)}
+function totalWater(logs){return logs.reduce((s,l)=>s+(l.water_ml||l.amount_ml||0),0)}
 function greeting(){
   const h=new Date().getHours();
   if(h<12)return'Good morning';
@@ -784,16 +776,21 @@ function greeting(){
 }
 function dayKey(offset=0){
   const d=new Date();d.setDate(d.getDate()+offset);
-  return d.toISOString().split('T')[0];
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
 }
 function weekDays(){
-  const days=[];const today=new Date();
-  const dow=today.getDay();
-  // Go back to Monday
-  const mon=new Date(today);mon.setDate(today.getDate()-((dow+6)%7));
+  const days=[];const todayDate=new Date();
+  const dow=todayDate.getDay();
+  const mon=new Date(todayDate);mon.setDate(todayDate.getDate()-((dow+6)%7));
   for(let i=0;i<7;i++){
     const d=new Date(mon);d.setDate(mon.getDate()+i);
-    days.push(d.toISOString().split('T')[0]);
+    const y=d.getFullYear();
+    const m=String(d.getMonth()+1).padStart(2,'0');
+    const day=String(d.getDate()).padStart(2,'0');
+    days.push(`${y}-${m}-${day}`);
   }
   return days;
 }
@@ -806,8 +803,10 @@ function typeEmoji(type){
 }
 function showToast(msg,type='',dur=2500){
   const t=document.getElementById('toast');
-  t.className='toast'+(type?' '+type:'');
+  t.className='';
+  t.className=type ? type : '';
   t.innerHTML=`<span>${type==='success'?'✓':type==='warn'?'⚠':''}</span> ${msg}`;
+  t.className = type ? type : '';
   setTimeout(()=>t.classList.add('hidden'),dur);
 }
 function closeModal(){document.getElementById('modal').classList.add('hidden')}
@@ -844,14 +843,12 @@ function renderToday(){
   const waterPct=Math.min(100,Math.round(waterDrank/waterTarget*100));
   const todayStr=today();
 
-  // Habit checks
   const hasSmooth=tl.some(l=>l.type==='smoothie');
   const hasMeal=tl.some(l=>l.type==='meal');
   const hasVitamin=tl.some(l=>l.type==='multivitamin');
   const waterDone=waterDrank>=waterTarget;
   const logCount=tl.length;
 
-  // Week consistency
   const weekDs=weekDays();
   const weekHtml=weekDs.map(d=>{
     const dl=APP.allLogs.filter(l=>l.date===d);
@@ -866,19 +863,16 @@ function renderToday(){
     return`<div class="day-cell"><div class="day-label">${dayLabel(d)}</div><div class="day-dot ${cls}">${hasLog?'✓':partial?'·':'·'}</div></div>`;
   }).join('');
 
-  // Consistency score
   const pastDays=weekDs.filter(d=>d<=todayStr);
   const doneDays=pastDays.filter(d=>{const l=APP.allLogs.filter(x=>x.date===d);return l.length>=2;});
   const score=pastDays.length>0?Math.round(doneDays.length/pastDays.length*100):0;
 
-  // Calorie ring
   const pct=Math.min(100,Math.round(consumed/target*100));
   const r=34;const circ=2*Math.PI*r;
   const offset=circ-(pct/100*circ);
   const overBudget=consumed>target;
   const remaining=target-consumed;
 
-  // Next recommendation
   const hour=new Date().getHours();
   let nextRec={icon:'🥤',text:'Time for your first smoothie',sub:'Start the day with a green protein blend'};
   if(hasSmooth&&hour>=11&&hour<14&&!hasMeal){nextRec={icon:'🍽️',text:'Time for a solid meal',sub:'Fuel up properly — skip nothing'};}
@@ -886,11 +880,13 @@ function renderToday(){
   else if(hour>=17&&!hasMeal){nextRec={icon:'🍽️',text:'Dinner time approaching',sub:'Plan a balanced whole-food meal'};}
   else if(hasSmooth&&hasMeal){nextRec={icon:'💧',text:'Water check',sub:`${fmt(waterDrank)} of ${fmt(waterTarget)} ml — ${waterPct}%`};}
 
-  // Smoothie-only warning
   const last3=[-2,-1,0].map(i=>APP.allLogs.filter(l=>l.date===dayKey(i)));
   const smoothieOnly=last3.every(d=>d.length>0&&d.every(e=>e.type==='smoothie'||e.type==='water'||e.type==='multivitamin')&&d.some(e=>e.type==='smoothie')&&!d.some(e=>e.type==='meal'));
-  
+
   const el=document.getElementById('today-content');
+  const waterMeta=`${fmt(waterDrank)} / ${fmt(waterTarget)} ml`;
+  const loggedMeta=`${logCount} logged today`;
+
   el.innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
       <div>
@@ -902,13 +898,11 @@ function renderToday(){
 
     ${smoothieOnly?`<div class="warn-banner">⚠️ You haven't logged a solid meal in 3 days. Add a whole-food meal today for better nutrition and sustainable results.</div>`:''}
 
-    <!-- Streak / Score -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
       <div class="streak-badge"><span class="icon">🌿</span> ${score}% consistent this week</div>
       ${logCount>=2?`<div style="font-size:.8rem;color:var(--success);font-weight:700">✓ Logged today</div>`:''}
     </div>
 
-    <!-- Calorie Ring -->
     <div class="card">
       <div class="card-header"><span class="card-title">Calories</span><span style="font-size:.8rem;color:var(--grey-400)">${new Date().toLocaleDateString('en',{weekday:'long'})}</span></div>
       <div class="card-body">
@@ -931,19 +925,17 @@ function renderToday(){
       </div>
     </div>
 
-    <!-- Habits -->
     <div class="card">
       <div class="card-header"><span class="card-title">Today's Habits</span></div>
       <div id="habits-list">
         ${habitRow('smoothie',hasSmooth,'🥤','First smoothie','Vegetable-heavy, protein-rich blend')}
         ${habitRow('meal',hasMeal,'🍽️','Solid whole-food meal','At least one complete meal today')}
-        ${habitRow('water',waterDone,'💧','Water goal','${fmt(waterDrank)} / ${fmt(waterTarget)} ml')}
+        ${habitRow('water',waterDone,'💧','Water goal',waterMeta)}
         ${habitRow('vitamin',hasVitamin,'💊','Multivitamin','Once daily')}
-        ${habitRow('logged',logCount>=2,'📋','Log 2+ entries','${logCount} logged today')}
+        ${habitRow('logged',logCount>=2,'📋','Log 2+ entries',loggedMeta)}
       </div>
     </div>
 
-    <!-- Water -->
     <div class="card">
       <div class="card-header">
         <span class="card-title">Hydration</span>
@@ -959,7 +951,6 @@ function renderToday(){
       </div>
     </div>
 
-    <!-- Next Up -->
     <div class="next-card">
       <div class="icon">${nextRec.icon}</div>
       <div class="next-card-text">
@@ -969,7 +960,6 @@ function renderToday(){
       <button class="next-card-action" onclick="navigate('log')">Log →</button>
     </div>
 
-    <!-- Quick Actions -->
     <div class="section-title">Quick Log</div>
     <div class="quick-actions">
       <div class="quick-action" onclick="quickLog('smoothie')"><div class="icon">🥤</div>Smoothie</div>
@@ -978,7 +968,6 @@ function renderToday(){
       <div class="quick-action" onclick="quickLog('vitamin')"><div class="icon">💊</div>Vitamin</div>
     </div>
 
-    <!-- Week strip -->
     <div class="card">
       <div class="card-header"><span class="card-title">This Week</span><span style="font-size:.8rem;color:var(--grey-400)">2+ logs = ✓</span></div>
       <div class="card-body">
@@ -994,9 +983,9 @@ function renderToday(){
     </div>
   `;
 
-  // Water drops
   const drops=document.getElementById('water-drops');
-  const glassSize=250;const totalGlasses=Math.round(waterTarget/glassSize);
+  const glassSize=250;
+  const totalGlasses=Math.max(1,Math.round(waterTarget/glassSize));
   const doneGlasses=Math.floor(waterDrank/glassSize);
   if(drops){
     drops.innerHTML='';
@@ -1008,6 +997,8 @@ function renderToday(){
       drops.appendChild(d);
     }
   }
+
+  updateLogBadge();
 }
 
 function habitRow(key,done,emoji,label,meta){
@@ -1021,7 +1012,6 @@ function habitRow(key,done,emoji,label,meta){
 }
 
 function toggleHabit(key){
-  // For smoothie/meal/vitamin - open quick log
   if(key==='smoothie')quickLog('smoothie');
   else if(key==='meal')quickLog('meal');
   else if(key==='vitamin')quickLog('vitamin');
@@ -1109,12 +1099,13 @@ async function saveQuickLog(){
     time:new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'}),
     timestamp:Date.now()
   };
-  await dbPut('intakeLogs',entry);
-  APP.allLogs.push(entry);
+  const id=await dbPut('intakeLogs',entry);
+  APP.allLogs.push({...entry,id});
   closeModal();
   showToast(`${typeEmoji(type)} ${name} logged`,'success');
   if(APP.currentScreen==='today')renderToday();
   else if(APP.currentScreen==='log')renderLog();
+  updateLogBadge();
 }
 
 // ====================================================
@@ -1141,6 +1132,7 @@ function renderLog(){
     <div class="card">${yesterday.map(e=>logEntryHtml(e,true)).join('')}</div>
     `:''}
   `;
+  updateLogBadge();
 }
 
 function logEntryHtml(e,readonly=false){
@@ -1148,7 +1140,7 @@ function logEntryHtml(e,readonly=false){
     <div class="entry-icon ${e.type}">${typeEmoji(e.type)}</div>
     <div class="entry-text">
       <div class="entry-name">${e.name}</div>
-      <div class="entry-meta">${e.time||''}${e.kcal>0?` · ${e.kcal} kcal`:''}${e.water_ml>0?` · ${e.water_ml}ml`:''}</div>
+      <div class="entry-meta">${e.time||''}${e.kcal>0?` · ${e.kcal} kcal`:''}${e.water_ml>0?` · ${e.water_ml} ml`:''}</div>
       ${e.notes?`<div class="entry-meta" style="font-style:italic">${e.notes}</div>`:''}
     </div>
     ${!readonly?`<button class="entry-del" onclick="deleteLog(${e.id})">✕</button>`:''}
@@ -1160,7 +1152,9 @@ async function deleteLog(id){
   await dbDelete('intakeLogs',id);
   APP.allLogs=APP.allLogs.filter(l=>l.id!==id);
   renderLog();
+  if(APP.currentScreen==='today')renderToday();
   showToast('Entry removed');
+  updateLogBadge();
 }
 
 async function repeatYesterday(){
@@ -1173,7 +1167,9 @@ async function repeatYesterday(){
     APP.allLogs.push({...entry,id:newId});
   }
   renderLog();
+  if(APP.currentScreen==='today')renderToday();
   showToast(`↻ Repeated ${yesterday.length} entries from yesterday`,'success');
+  updateLogBadge();
 }
 
 // ====================================================
@@ -1294,6 +1290,9 @@ async function logRecipe(id){
   APP.allLogs.push({...entry,id:newId});
   closeModal();
   showToast(`${r.emoji} ${r.name} logged`,'success');
+  if(APP.currentScreen==='today')renderToday();
+  else if(APP.currentScreen==='log')renderLog();
+  updateLogBadge();
 }
 
 // ====================================================
@@ -1310,19 +1309,16 @@ function renderMetrics(){
   const deficit=tdee-target;
   const weeklyLoss=(deficit*7/7700).toFixed(2);
 
-  // Last 7 days calorie data
   const last7=Array.from({length:7},(_,i)=>{
     const d=dayKey(i-6);
     const logs=APP.allLogs.filter(l=>l.date===d);
     return{date:d,kcal:totalKcal(logs),label:dayLabel(d)};
   });
 
-  // Weight history
   const weights=APP.bodyMetrics.sort((a,b)=>a.timestamp-b.timestamp).slice(-14);
 
   const el=document.getElementById('metrics-content');
   el.innerHTML=`
-    <!-- BMI -->
     <div class="card">
       <div class="card-header"><span class="card-title">BMI</span><span style="font-size:.8rem;padding:4px 10px;background:${bmiCat.color}22;color:${bmiCat.color};border-radius:999px;font-weight:700">${bmiCat.label}</span></div>
       <div class="card-body">
@@ -1340,7 +1336,6 @@ function renderMetrics(){
       </div>
     </div>
 
-    <!-- Calorie targets -->
     <div class="metric-row">
       <div class="card"><div class="metric-stat">
         <div class="metric-stat-label">BMR</div>
@@ -1366,13 +1361,11 @@ function renderMetrics(){
       </div></div>
     </div>
 
-    <!-- 7-day calorie chart -->
     <div class="card">
       <div class="card-header"><span class="card-title">7-Day Calories</span></div>
       <div class="chart-wrap"><canvas id="kcal-chart"></canvas></div>
     </div>
 
-    <!-- Weight chart -->
     <div class="card">
       <div class="card-header">
         <span class="card-title">Weight Trend</span>
@@ -1383,7 +1376,6 @@ function renderMetrics(){
         :`<div class="chart-wrap"><canvas id="weight-chart"></canvas></div>`}
     </div>
 
-    <!-- Formula disclosure -->
     <div class="card">
       <div class="card-header"><span class="card-title">How targets are calculated</span></div>
       <div class="card-body" style="font-size:.85rem;color:var(--grey-600);line-height:1.7">
@@ -1396,7 +1388,6 @@ function renderMetrics(){
     </div>
   `;
 
-  // Render calorie chart
   setTimeout(()=>{
     const kc=document.getElementById('kcal-chart');
     if(kc){
@@ -1455,7 +1446,6 @@ async function saveWeight(){
   const entry={weight:w,notes:n,date:today(),timestamp:Date.now()};
   const id=await dbPut('bodyMetrics',entry);
   APP.bodyMetrics.push({...entry,id});
-  // Update profile weight
   if(APP.profile){APP.profile.weight=w;await dbPut('profile',APP.profile);}
   closeModal();
   showToast(`⚖️ ${w} kg logged`,'success');
@@ -1472,7 +1462,6 @@ function renderSettings(){
   const target=p.calorieTarget||calcTarget(p);
   const el=document.getElementById('settings-content');
   el.innerHTML=`
-    <!-- Profile summary -->
     <div class="card" style="margin-bottom:14px">
       <div class="card-body" style="display:flex;align-items:center;gap:16px">
         <div style="width:52px;height:52px;border-radius:50%;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0">🌿</div>
@@ -1484,7 +1473,6 @@ function renderSettings(){
       </div>
     </div>
 
-    <!-- Profile settings -->
     <div class="section-title">Profile</div>
     <div class="card">
       ${settingsRow('👤','Name',p.name,'editName')}
@@ -1519,7 +1507,7 @@ function renderSettings(){
 }
 
 function settingsRow(icon,label,value,action,bg='var(--grey-50)',color='var(--grey-700)'){
-  return`<div class="settings-row" onclick="${action}&&${action}()">
+  return`<div class="settings-row" onclick="${action} && ${action}()">
     <div class="settings-row-left">
       <div class="settings-icon" style="background:${bg};color:${color}">${icon}</div>
       <div>
@@ -1556,7 +1544,6 @@ function requestNotificationPermission(){
   }
 }
 
-// Settings edits
 function editName(){editField('Name','text',APP.profile.name,async v=>{APP.profile.name=v;await dbPut('profile',APP.profile);renderSettings();})}
 function editWeight(){editField('Weight (kg)','number',APP.profile.weight,async v=>{APP.profile.weight=parseFloat(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();},'0.1')}
 function editHeight(){editField('Height (cm)','number',APP.profile.height,async v=>{APP.profile.height=parseInt(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();})}
@@ -1642,7 +1629,7 @@ function doExport(format){
   } else {
     const rows=[['date','time','type','name','kcal','protein','water_ml','notes']];
     APP.allLogs.forEach(l=>rows.push([l.date,l.time||'',l.type,l.name,l.kcal||0,l.protein||0,l.water_ml||0,l.notes||'']));
-    blob=new Blob([rows.map(r=>r.map(c=>`"${c}"`).join(',')).join('\n')],{type:'text/csv'});
+    blob=new Blob([rows.map(r=>r.map(c=>`"${String(c).replaceAll('"','""')}"`).join(',')).join('\n')],{type:'text/csv'});
     filename=`blendtrak-${today()}.csv`;
   }
   const url=URL.createObjectURL(blob);
@@ -1692,10 +1679,13 @@ async function doImport(){
     for(const l of (data.intakeLogs||[])){const e={...l};delete e.id;await dbPut('intakeLogs',e);imported++;}
     for(const m of (data.bodyMetrics||[])){const e={...m};delete e.id;await dbPut('bodyMetrics',e);}
     if(data.profile&&mode==='replace'){await dbClear('profile');await dbPut('profile',{...data.profile,id:1});}
+    if(data.favorites&&mode==='replace'){await dbClear('favorites');for(const f of data.favorites){const e={...f};delete e.id;await dbPut('favorites',e);}}
+    if(data.reminders){await dbClear('reminders');await dbPut('reminders',{...data.reminders,id:1});}
     await loadState();
     closeModal();
     showToast(`✓ Imported ${imported} entries`,'success');
     navigate('today');
+    updateLogBadge();
   }catch(e){showToast('Import failed — invalid file','warn');}
 }
 
@@ -1800,7 +1790,6 @@ async function obFinish(){
   };
   await dbPut('profile',profile);
   APP.profile=profile;
-  // Seed recipes are in JS — no need to store. Seed initial reminder settings.
   const reminders={id:1,water:true,meal:true,smoothie:true,vitamin:true,wakeTime:'07:00',quietFrom:'21:00',quietTo:'07:00'};
   await dbPut('reminders',reminders);
   APP.reminders=reminders;
@@ -1814,6 +1803,17 @@ async function obFinish(){
 // HEADER ACTION
 // ====================================================
 function headerAction(){}
+
+// ====================================================
+// LOG BADGE
+// ====================================================
+function updateLogBadge(){
+  const count=APP.allLogs.filter(l=>l.date===today()).length;
+  const badge=document.getElementById('log-badge');
+  if(!badge)return;
+  badge.textContent=count;
+  badge.style.display=count>0?'flex':'none';
+}
 
 // ====================================================
 // SERVICE WORKER
@@ -1830,6 +1830,7 @@ if('serviceWorker' in navigator){
 async function init(){
   await openDB();
   const profile=await loadState();
+  updateLogBadge();
   if(!profile){
     document.getElementById('onboarding').classList.remove('hidden');
     document.getElementById('main').classList.add('hidden');
@@ -1842,6 +1843,5 @@ async function init(){
 
 init().catch(console.error);
 </script>
-
 </body>
 </html>
