@@ -1,0 +1,38 @@
+{
+  "name": "BlendTrak",
+  "short_name": "BlendTrak",
+  "description": "Habit-first fat loss with a smoothie-plus-meal workflow",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#2A9D8F",
+  "background_color": "#F0F8F6",
+  "categories": ["health", "fitness", "lifestyle"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%232A9D8F'/%3E%3Cpath d='M96 32 C96 32 64 56 64 90 C64 110 78 124 96 124 C114 124 128 110 128 90 C128 56 96 32 96 32Z' fill='%23E8F5F3'/%3E%3Cpath d='M72 78 C80 62 96 50 96 50 C96 50 112 62 120 78' stroke='%232A9D8F' stroke-width='3' fill='none'/%3E%3Cpath d='M96 124 L96 160' stroke='%23E8F5F3' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M80 148 L96 160 L112 148' stroke='%23E8F5F3' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%232A9D8F'/%3E%3Cpath d='M256 80 C256 80 170 138 170 220 C170 270 208 305 256 305 C304 305 342 270 342 220 C342 138 256 80 256 80Z' fill='%23E8F5F3'/%3E%3Cpath d='M256 305 L256 430' stroke='%23E8F5F3' stroke-width='16' stroke-linecap='round'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Log Smoothie",
+      "short_name": "Log Smoothie",
+      "description": "Quickly log your morning smoothie",
+      "url": "./index.html?action=log-smoothie"
+    },
+    {
+      "name": "Log Water",
+      "short_name": "Log Water",
+      "description": "Quickly log water intake",
+      "url": "./index.html?action=log-water"
+    }
+  ]
+}
