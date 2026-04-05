@@ -398,16 +398,18 @@ canvas{max-width:100%}
     <div class="ob-dot"></div>
   </div>
 
+  <!-- Step 1: Welcome -->
   <div class="ob-step active" id="ob-1">
     <h1 class="ob-title">Your habit-first<br><em>fat loss companion</em></h1>
     <p class="ob-sub">BlendTrak helps you stay consistent with the small daily habits that actually drive fat loss — smoothies, meals, water, and weekly check-ins. No punishment, just progress.</p>
     <div style="font-size:3rem;margin:24px 0;text-align:center">🥤🌿💧</div>
     <p class="ob-sub" style="text-align:center;margin-bottom:0">All your data lives <strong>on this device only</strong>. No account needed.</p>
     <div class="ob-actions">
-      <button class="btn btn-primary btn-block" onclick="obNext()">Get started →</button>
+      <button type="button" class="btn btn-primary btn-block" onclick="obNext()">Get started →</button>
     </div>
   </div>
 
+  <!-- Step 2: Profile -->
   <div class="ob-step" id="ob-2">
     <h2 class="ob-title">About you</h2>
     <p class="ob-sub">Used only to calculate your personal calorie target. Stays on your device.</p>
@@ -439,11 +441,12 @@ canvas{max-width:100%}
       </div>
     </div>
     <div class="ob-actions">
-      <button class="btn btn-ghost" onclick="obBack()">← Back</button>
-      <button class="btn btn-primary" style="flex:1" onclick="obNext()">Continue</button>
+      <button type="button" class="btn btn-ghost" onclick="obBack()">← Back</button>
+      <button type="button" class="btn btn-primary" style="flex:1" onclick="obNext()">Continue</button>
     </div>
   </div>
 
+  <!-- Step 3: Activity & Goal -->
   <div class="ob-step" id="ob-3">
     <h2 class="ob-title">Activity & goal</h2>
     <p class="ob-sub">We'll use this to set a smart calorie target that supports steady fat loss.</p>
@@ -467,11 +470,12 @@ canvas{max-width:100%}
       </select>
     </div>
     <div class="ob-actions">
-      <button class="btn btn-ghost" onclick="obBack()">← Back</button>
-      <button class="btn btn-primary" style="flex:1" onclick="obNext()">Continue</button>
+      <button type="button" class="btn btn-ghost" onclick="obBack()">← Back</button>
+      <button type="button" class="btn btn-primary" style="flex:1" onclick="obNext()">Continue</button>
     </div>
   </div>
 
+  <!-- Step 4: Summary -->
   <div class="ob-step" id="ob-4">
     <h2 class="ob-title">Your daily targets</h2>
     <p class="ob-sub">Here's what BlendTrak will use as your starting targets. You can adjust these anytime in Settings.</p>
@@ -481,8 +485,8 @@ canvas{max-width:100%}
     <div id="ob-bmi-warn" class="warn-banner hidden">⚠️ <span id="ob-bmi-warn-text"></span></div>
     <div class="info-banner">🌿 <span>We'll start with a mild deficit (~15% below your maintenance calories) for gradual, sustainable fat loss.</span></div>
     <div class="ob-actions">
-      <button class="btn btn-ghost" onclick="obBack()">← Back</button>
-      <button class="btn btn-primary" style="flex:1" onclick="obFinish()">Start using BlendTrak 🌿</button>
+      <button type="button" class="btn btn-ghost" onclick="obBack()">← Back</button>
+      <button type="button" class="btn btn-primary" style="flex:1" onclick="obFinish()">Start using BlendTrak 🌿</button>
     </div>
   </div>
 </div>
@@ -500,7 +504,7 @@ canvas{max-width:100%}
     </div>
     <span class="hdr-title" id="hdr-title"></span>
     <div class="hdr-right">
-      <button class="hdr-btn" id="hdr-action" onclick="headerAction()" style="display:none">⋯</button>
+      <button type="button" class="hdr-btn" id="hdr-action" onclick="headerAction()" style="display:none">⋯</button>
     </div>
   </header>
 
@@ -513,26 +517,26 @@ canvas{max-width:100%}
   </main>
 
   <nav id="bottom-nav">
-    <button class="nav-btn active" data-screen="today" onclick="navigate('today')">
+    <button type="button" class="nav-btn active" data-screen="today" onclick="navigate('today')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       Today
     </button>
-    <button class="nav-btn" data-screen="log" onclick="navigate('log')">
+    <button type="button" class="nav-btn" data-screen="log" onclick="navigate('log')">
       <div class="nav-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
         <span class="nav-badge" id="log-badge">0</span>
       </div>
       Log
     </button>
-    <button class="nav-btn" data-screen="recipes" onclick="navigate('recipes')">
+    <button type="button" class="nav-btn" data-screen="recipes" onclick="navigate('recipes')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 00-5 5c0 2 1 3.5 2.5 4.5V13h5v-1.5C16 10.5 17 9 17 7a5 5 0 00-5-5z"/><rect x="9" y="13" width="6" height="8" rx="1"/></svg>
       Recipes
     </button>
-    <button class="nav-btn" data-screen="metrics" onclick="navigate('metrics')">
+    <button type="button" class="nav-btn" data-screen="metrics" onclick="navigate('metrics')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
       Metrics
     </button>
-    <button class="nav-btn" data-screen="settings" onclick="navigate('settings')">
+    <button type="button" class="nav-btn" data-screen="settings" onclick="navigate('settings')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       More
     </button>
@@ -798,10 +802,10 @@ function typeEmoji(type){
 }
 function showToast(msg,type='',dur=2500){
   const t=document.getElementById('toast');
-  t.className=''; // reset any prior state
-  t.classList.remove('hidden');
-  if(type)t.classList.add(type);
+  t.className='hidden';
   t.innerHTML=`<span>${type==='success'?'✓':type==='warn'?'⚠':''}</span> ${msg}`;
+  t.className=type||'';
+  t.classList.remove('hidden');
   setTimeout(()=>t.classList.add('hidden'),dur);
 }
 function closeModal(){document.getElementById('modal').classList.add('hidden')}
@@ -815,6 +819,10 @@ function updateLogBadge(){
   if(!badge)return;
   badge.textContent=count;
   badge.style.display=count>0?'flex':'none';
+}
+function runAction(action){
+  const fn=window[action];
+  if(typeof fn==='function') fn();
 }
 
 // ====================================================
@@ -941,7 +949,7 @@ function renderToday(){
     <div class="card">
       <div class="card-header">
         <span class="card-title">Hydration</span>
-        <button class="btn btn-secondary btn-sm" onclick="quickLog('water')">+ Add Water</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="quickLog('water')">+ Add Water</button>
       </div>
       <div class="card-body">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
@@ -959,7 +967,7 @@ function renderToday(){
         <h4>${nextRec.text}</h4>
         <p>${nextRec.sub}</p>
       </div>
-      <button class="next-card-action" onclick="navigate('log')">Log →</button>
+      <button type="button" class="next-card-action" onclick="navigate('log')">Log →</button>
     </div>
 
     <div class="section-title">Quick Log</div>
@@ -967,7 +975,7 @@ function renderToday(){
       <div class="quick-action" onclick="quickLog('smoothie')"><div class="icon">🥤</div>Smoothie</div>
       <div class="quick-action" onclick="quickLog('meal')"><div class="icon">🍽️</div>Meal</div>
       <div class="quick-action" onclick="quickLog('water')"><div class="icon">💧</div>Water</div>
-      <div class="quick-action" onclick="quickLog('vitamin')"><div class="icon">💊</div>Vitamin</div>
+      <div class="quick-action" onclick="quickLog('multivitamin')"><div class="icon">💊</div>Vitamin</div>
     </div>
 
     <div class="card">
@@ -1072,8 +1080,8 @@ function quickLog(preType='smoothie'){
       </div>
     </div>
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" style="flex:1" onclick="saveQuickLog()">Save Entry</button>
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" style="flex:1" onclick="saveQuickLog()">Save Entry</button>
     </div>
   `);
 }
@@ -1120,11 +1128,11 @@ function renderLog(){
   const el=document.getElementById('log-content');
   el.innerHTML=`
     <div style="display:flex;gap:10px;margin-bottom:16px">
-      <button class="btn btn-primary btn-sm" onclick="quickLog('smoothie')" style="flex:1">+ Smoothie</button>
-      <button class="btn btn-secondary btn-sm" onclick="quickLog('meal')" style="flex:1">+ Meal</button>
-      <button class="btn btn-ghost btn-sm" onclick="quickLog()" style="flex:1">+ Other</button>
+      <button type="button" class="btn btn-primary btn-sm" onclick="quickLog('smoothie')" style="flex:1">+ Smoothie</button>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="quickLog('meal')" style="flex:1">+ Meal</button>
+      <button type="button" class="btn btn-ghost btn-sm" onclick="quickLog()" style="flex:1">+ Other</button>
     </div>
-    ${yesterday.length>0?`<button class="btn btn-secondary btn-block btn-sm" onclick="repeatYesterday()" style="margin-bottom:16px">↻ Repeat yesterday's log</button>`:''}
+    ${yesterday.length>0?`<button type="button" class="btn btn-secondary btn-block btn-sm" onclick="repeatYesterday()" style="margin-bottom:16px">↻ Repeat yesterday's log</button>`:''}
     <div class="section-title">Today · ${tl.length} entries · ${fmt(totalKcal(tl))} kcal</div>
     <div class="card" id="today-log-list">
       ${tl.length===0?`<div class="empty-state"><div class="icon">🥤</div><h4>No entries yet</h4><p>Log your first smoothie or meal to get started.</p></div>`
@@ -1146,7 +1154,7 @@ function logEntryHtml(e,readonly=false){
       <div class="entry-meta">${e.time||''}${e.kcal>0?` · ${e.kcal} kcal`:''}${e.water_ml>0?` · ${e.water_ml} ml`:''}</div>
       ${e.notes?`<div class="entry-meta" style="font-style:italic">${e.notes}</div>`:''}
     </div>
-    ${!readonly?`<button class="entry-del" onclick="deleteLog(${e.id})">✕</button>`:''}
+    ${!readonly?`<button type="button" class="entry-del" onclick="deleteLog(${e.id})">✕</button>`:''}
   </div>`;
 }
 
@@ -1184,9 +1192,9 @@ function renderRecipes(){
   const favIds=APP.favorites.map(f=>f.recipeId);
   el.innerHTML=`
     <div class="seg-control" style="margin-bottom:16px">
-      <button class="seg-btn${recipesTab==='smoothie'?' active':''}" onclick="setRecipeTab('smoothie')">🥤 Smoothies</button>
-      <button class="seg-btn${recipesTab==='meal'?' active':''}" onclick="setRecipeTab('meal')">🍽️ Meals</button>
-      <button class="seg-btn${recipesTab==='fav'?' active':''}" onclick="setRecipeTab('fav')">★ Saved</button>
+      <button type="button" class="seg-btn${recipesTab==='smoothie'?' active':''}" onclick="setRecipeTab('smoothie')">🥤 Smoothies</button>
+      <button type="button" class="seg-btn${recipesTab==='meal'?' active':''}" onclick="setRecipeTab('meal')">🍽️ Meals</button>
+      <button type="button" class="seg-btn${recipesTab==='fav'?' active':''}" onclick="setRecipeTab('fav')">★ Saved</button>
     </div>
     <div id="recipe-list"></div>
   `;
@@ -1221,7 +1229,7 @@ function recipeCardHtml(r,isFav){
       <div class="recipe-tags">${r.tags.map(t=>`<span class="recipe-tag">${t}</span>`).join('')}</div>
       <div class="recipe-stats">${r.kcal} kcal · ${r.protein}g protein · ${r.fiber||'—'}g fibre</div>
     </div>
-    <button class="recipe-fav${isFav?' active':''}" onclick="event.stopPropagation();toggleFav('${r.id}')">${isFav?'★':'☆'}</button>
+    <button type="button" class="recipe-fav${isFav?' active':''}" onclick="event.stopPropagation();toggleFav('${r.id}')">${isFav?'★':'☆'}</button>
   </div>`;
 }
 
@@ -1259,8 +1267,8 @@ function showRecipe(id){
       ${r.notes?`<div class="info-banner">💡 ${r.notes}</div>`:''}
     </div>
     <div class="modal-actions">
-      <button class="btn btn-secondary btn-sm" onclick="toggleFav('${r.id}');closeModal()">${isFav?'★ Saved':'☆ Save'}</button>
-      <button class="btn btn-primary" style="flex:1" onclick="logRecipe('${r.id}')">Log This →</button>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="toggleFav('${r.id}');closeModal()">${isFav?'★ Saved':'☆ Save'}</button>
+      <button type="button" class="btn btn-primary" style="flex:1" onclick="logRecipe('${r.id}')">Log This →</button>
     </div>
   `);
 }
@@ -1372,7 +1380,7 @@ function renderMetrics(){
     <div class="card">
       <div class="card-header">
         <span class="card-title">Weight Trend</span>
-        <button class="btn btn-secondary btn-sm" onclick="logWeight()">+ Weight</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="logWeight()">+ Weight</button>
       </div>
       ${weights.length===0
         ?`<div class="card-body"><div class="empty-state" style="padding:24px"><div class="icon">⚖️</div><h4>No weigh-ins yet</h4><p>Log your weight to track your trend.</p></div></div>`
@@ -1436,8 +1444,8 @@ function logWeight(){
       </div>
     </div>
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" style="flex:1" onclick="saveWeight()">Save</button>
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" style="flex:1" onclick="saveWeight()">Save</button>
     </div>
   `);
 }
@@ -1511,7 +1519,7 @@ function renderSettings(){
 }
 
 function settingsRow(icon,label,value,action,bg='var(--grey-50)',color='var(--grey-700)'){
-  return`<div class="settings-row" onclick="${action} && ${action}()">
+  return`<div class="settings-row" onclick="runAction('${action}')">
     <div class="settings-row-left">
       <div class="settings-icon" style="background:${bg};color:${color}">${icon}</div>
       <div>
@@ -1548,12 +1556,39 @@ function requestNotificationPermission(){
   }
 }
 
-function editName(){editField('Name','text',APP.profile.name,async v=>{APP.profile.name=v;await dbPut('profile',APP.profile);renderSettings();})}
-function editWeight(){editField('Weight (kg)','number',APP.profile.weight,async v=>{APP.profile.weight=parseFloat(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();renderMetrics();},'0.1')}
-function editHeight(){editField('Height (cm)','number',APP.profile.height,async v=>{APP.profile.height=parseInt(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();renderMetrics();})}
-function editAge(){editField('Age','number',APP.profile.age,async v=>{APP.profile.age=parseInt(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();renderMetrics();})}
-function editTarget(){editField('Daily Calorie Target (kcal)','number',APP.profile.calorieTarget,async v=>{APP.profile.calorieTarget=parseInt(v);await dbPut('profile',APP.profile);renderSettings();renderMetrics();})}
-function editWater(){editField('Water Goal (ml)','number',APP.profile.waterGoal||2000,async v=>{APP.profile.waterGoal=parseInt(v);await dbPut('profile',APP.profile);renderSettings();},'50')}
+function editName(){openEditField('Name','text',APP.profile.name,async v=>{APP.profile.name=v;await dbPut('profile',APP.profile);renderSettings();})}
+function editWeight(){openEditField('Weight (kg)','number',APP.profile.weight,async v=>{APP.profile.weight=parseFloat(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();renderMetrics();},'0.1')}
+function editHeight(){openEditField('Height (cm)','number',APP.profile.height,async v=>{APP.profile.height=parseInt(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();renderMetrics();})}
+function editAge(){openEditField('Age','number',APP.profile.age,async v=>{APP.profile.age=parseInt(v);APP.profile.calorieTarget=calcTarget(APP.profile);await dbPut('profile',APP.profile);renderSettings();renderMetrics();})}
+function editTarget(){openEditField('Daily Calorie Target (kcal)','number',APP.profile.calorieTarget,async v=>{APP.profile.calorieTarget=parseInt(v);await dbPut('profile',APP.profile);renderSettings();renderMetrics();})}
+function editWater(){openEditField('Water Goal (ml)','number',APP.profile.waterGoal||2000,async v=>{APP.profile.waterGoal=parseInt(v);await dbPut('profile',APP.profile);renderSettings();},'50')}
+
+function openEditField(label,type,currentVal,onSave,step='1'){
+  window.__editFieldSave=onSave;
+  openModal(`
+    <div class="modal-title">Edit ${label}</div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">${label}</label>
+        <input class="form-input" id="ef-val" type="${type}" value="${currentVal}" step="${step}">
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" style="flex:1" onclick="saveEditField()">Save</button>
+    </div>
+  `);
+}
+
+async function saveEditField(){
+  const v=document.getElementById('ef-val').value;
+  if(v===null||v===undefined||v==='')return;
+  const fn=window.__editFieldSave;
+  if(typeof fn==='function')await fn(v);
+  window.__editFieldSave=null;
+  closeModal();
+}
+
 function editActivity(){
   openModal(`
     <div class="modal-title">Activity Level</div>
@@ -1568,28 +1603,12 @@ function editActivity(){
         </div>
       `).join('')}
     </div>
-    <div class="modal-actions"><button class="btn btn-ghost btn-block" onclick="closeModal()">Cancel</button></div>
+    <div class="modal-actions"><button type="button" class="btn btn-ghost btn-block" onclick="closeModal()">Cancel</button></div>
   `);
 }
 async function setActivity(val){
   APP.profile.activity=val;APP.profile.calorieTarget=calcTarget(APP.profile);
   await dbPut('profile',APP.profile);closeModal();renderSettings();renderMetrics();
-}
-
-function editField(label,type,currentVal,onSave,step='1'){
-  openModal(`
-    <div class="modal-title">Edit ${label}</div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">${label}</label>
-        <input class="form-input" id="ef-val" type="${type}" value="${currentVal}" step="${step}">
-      </div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" style="flex:1" onclick="(async()=>{const v=document.getElementById('ef-val').value;if(!v)return;await (${onSave.toString()})(v);closeModal();})()">Save</button>
-    </div>
-  `);
 }
 
 // ====================================================
@@ -1616,9 +1635,9 @@ async function exportData(){
       </div>
     </div>
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-secondary" onclick="doExport('json')">Export JSON</button>
-      <button class="btn btn-primary" onclick="doExport('csv')">Export CSV</button>
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-secondary" onclick="doExport('json')">Export JSON</button>
+      <button type="button" class="btn btn-primary" onclick="doExport('csv')">Export CSV</button>
     </div>
   `);
   window._exportData=data;
@@ -1661,8 +1680,8 @@ function importData(){
       </div>
     </div>
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" style="flex:1" onclick="doImport()">Import</button>
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" style="flex:1" onclick="doImport()">Import</button>
     </div>
   `);
 }
@@ -1701,8 +1720,8 @@ async function clearData(){
       <p style="color:var(--grey-600);font-size:.9rem">Consider exporting your data first.</p>
     </div>
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-warn" onclick="doResetAll()">Delete Everything</button>
+      <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-warn" onclick="doResetAll()">Delete Everything</button>
     </div>
   `);
 }
@@ -1836,5 +1855,6 @@ async function init(){
 
 init().catch(console.error);
 </script>
+
 </body>
 </html>
