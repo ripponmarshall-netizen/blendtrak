@@ -1,0 +1,27 @@
+{
+  "name": "BlendTrak",
+  "short_name": "BlendTrak",
+  "description": "Habit-first fat loss — smoothies, meals, water and weekly trends.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAFAFA",
+  "theme_color": "#2A9D8F",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%232A9D8F'/><path d='M96 32C96 32 58 63 58 101C58 123 75 141 96 141C117 141 134 123 134 101C134 63 96 32 96 32Z' fill='%23E8F5F3'/><path d='M96 141V170' stroke='%23E8F5F3' stroke-width='12' stroke-linecap='round'/></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%232A9D8F'/><path d='M256 80C256 80 152 164 152 264C152 319 199 362 256 362C313 362 360 319 360 264C360 164 256 80 256 80Z' fill='%23E8F5F3'/><path d='M256 362V450' stroke='%23E8F5F3' stroke-width='30' stroke-linecap='round'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "fitness"],
+  "lang": "en",
+  "scope": "./"
+}
